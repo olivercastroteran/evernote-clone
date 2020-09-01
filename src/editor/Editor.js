@@ -6,9 +6,32 @@ import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
 class Editor extends Component {
-  state = {};
+  state = {
+    text: '',
+    title: '',
+    id: '',
+  };
+
+  updateBody = async (val) => {
+    await this.setState({ text: val });
+    this.update();
+  };
+
+  update = debounce(() => {
+    console.log('Updating data base');
+  }, 1500);
+
   render() {
-    return <div>Hello from the Editor</div>;
+    const { classes } = this.props;
+
+    return (
+      <div className={classes.editorContainer}>
+        <ReactQuill
+          value={this.state.text}
+          onChange={this.updateBody}
+        ></ReactQuill>
+      </div>
+    );
   }
 }
 
