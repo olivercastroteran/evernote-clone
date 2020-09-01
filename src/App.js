@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import SideBar from './sideBar/SideBar';
+import Editor from './editor/Editor';
 
 const firebase = require('firebase');
 class App extends Component {
@@ -10,7 +12,12 @@ class App extends Component {
   };
 
   render() {
-    return <div>Hollo</div>;
+    return (
+      <div className="app-container">
+        <SideBar />
+        <Editor />
+      </div>
+    );
   }
 
   componentDidMount = () => {
