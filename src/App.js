@@ -7,9 +7,12 @@ const firebase = require('firebase');
 class App extends Component {
   state = {
     selectedNoteIndex: null,
-    slectedNote: null,
+    selectedNote: null,
     notes: null,
   };
+
+  selectNote = (note, index) =>
+    this.setState({ selectedNoteIndex: index, selectedNote: note });
 
   render() {
     return (
@@ -17,8 +20,17 @@ class App extends Component {
         <SideBar
           selectedNoteIndex={this.state.selectedNoteIndex}
           notes={this.state.notes}
+          deleteNote={this.deleteNote}
+          selectNote={this.selectNote}
+          newNote={this.newNote}
         />
-        <Editor />
+        {this.state.selectedNote ? (
+          <Editor
+            selectedNote={this.state.selectedNote}
+            selectedNoteIndex={this.state.selectedNoteIndex}
+            notes={this.state.notes}
+          />
+        ) : null}
       </div>
     );
   }
