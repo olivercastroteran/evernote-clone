@@ -24,28 +24,60 @@ class SideBar extends Component {
     console.log(this.state);
   };
 
+  selectNote = () => {
+    console.log('selected');
+  };
+
+  deletetNote = () => {
+    console.log('deleted');
+  };
+
   render() {
     const { notes, classes, selectedNoteIndex } = this.props;
-    return (
-      <div className={classes.sidebarContainer}>
-        <Button onClick={this.newNoteBtnClick} className={classes.newNoteBtn}>
-          {this.state.addingNote ? 'Cancel' : 'New Note'}
-        </Button>
-        {this.state.addingNote ? (
-          <div>
-            <input
-              type="text"
-              className={classes.newNoteInput}
-              placeholder="Enter note title"
-              onKeyUp={(e) => this.updateTitle(e.target.value)}
-            />
-            <Button className={classes.newNoteSubmitBtn} onClick={this.newNote}>
-              Submit
-            </Button>
-          </div>
-        ) : null}
-      </div>
-    );
+
+    if (notes) {
+      return (
+        <div className={classes.sidebarContainer}>
+          <Button onClick={this.newNoteBtnClick} className={classes.newNoteBtn}>
+            {this.state.addingNote ? 'Cancel' : 'New Note'}
+          </Button>
+          {this.state.addingNote ? (
+            <div>
+              <input
+                type="text"
+                className={classes.newNoteInput}
+                placeholder="Enter note title"
+                onKeyUp={(e) => this.updateTitle(e.target.value)}
+              />
+              <Button
+                className={classes.newNoteSubmitBtn}
+                onClick={this.newNote}
+              >
+                Submit
+              </Button>
+            </div>
+          ) : null}
+          <List>
+            {notes.map((note, index) => {
+              return (
+                <div key={index}>
+                  <SidebarItem
+                    note={note}
+                    index={index}
+                    selectedNoteIndex={selectedNoteIndex}
+                    selectNote={this.selectNote}
+                    deleteNote={this.deletetNote}
+                  />
+                  <Divider />
+                </div>
+              );
+            })}
+          </List>
+        </div>
+      );
+    } else {
+      return <div>Add a note!</div>;
+    }
   }
 }
 
