@@ -14,7 +14,10 @@ class App extends Component {
   render() {
     return (
       <div className="app-container">
-        <SideBar />
+        <SideBar
+          selectedNoteIndex={this.state.selectedNoteIndex}
+          notes={this.state.notes}
+        />
         <Editor />
       </div>
     );
